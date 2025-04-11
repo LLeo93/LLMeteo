@@ -14,7 +14,7 @@ import {
 import { BsSearch, BsXCircle, BsStar } from 'react-icons/bs';
 import { useState, useEffect, useRef } from 'react';
 
-const apiKey = '51662e029381b9f9e3ff4003faed86c1';
+const weatherApiKey = '51662e029381b9f9e3ff4003faed86c1';
 
 const CustomNavbar = function (props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +24,20 @@ const CustomNavbar = function (props) {
   const [favoriteCities, setFavoriteCities] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [filteredCities, setFilteredCities] = useState([]);
+  const [bgImage, setBgImage] = useState('');
   const searchInputRef = useRef(null);
+
+  const cityBackgroundImages = {
+    Milano:
+      'https://www.domina.it/wp-content/uploads/sites/360/2021/10/milan-cathedral.jpg',
+    Certaldo:
+      'https://www.toscana.info/wp-content/uploads/sites/123/certaldo-hd.jpg',
+    Fiesole: 'https://i.ytimg.com/vi/1ljqNmpOChM/maxresdefault.jpg',
+    Poggibonsi:
+      'https://www.toscana.info/wp-content/uploads/sites/123/poggibonsi-hd.jpg',
+    Quarrata:
+      'https://www.toscana.info/wp-content/uploads/sites/123/quarrata-villa-la-magia-hd.jpg',
+  };
 
   const loadCitiesFromLocalStorage = () => {
     const savedRecentCities =
@@ -70,6 +83,10 @@ const CustomNavbar = function (props) {
     localStorage.setItem('selectedCity', city);
     setSearchInput(city);
     setDropdownOpen(false);
+
+    if (cityBackgroundImages[city]) {
+      setBgImage(cityBackgroundImages[city]);
+    }
   };
 
   const handleSearch = async () => {
@@ -77,7 +94,7 @@ const CustomNavbar = function (props) {
       const searchCity = searchInput.trim();
       try {
         const response = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&appid=${apiKey}&units=metric&lang=it`
+          `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&appid=${weatherApiKey}&units=metric&lang=it`
         );
         const data = await response.json();
         if (data.cod === 200) {
@@ -157,12 +174,13 @@ const CustomNavbar = function (props) {
       <div
         className="px-3"
         style={{
-          backgroundImage:
-            "url('https://italiaignota.com/wp-content/uploads/2021/07/copertina_certaldo_cosavedere.jpg')",
+          backgroundImage: bgImage
+            ? `url(${bgImage})`
+            : "url('https://italiaignota.com/wp-content/uploads/2021/07/copertina_certaldo_cosavedere.jpg')",
           backgroundPosition: 'center',
           backgroundSize: 'cover',
           backgroundAttachment: 'fixed',
-          minHeight: '400px',
+          minHeight: '600px',
           paddingTop: '1rem',
         }}
       >
@@ -196,7 +214,7 @@ const CustomNavbar = function (props) {
                     <Nav key={city} className="me-1 d-flex align-items-center">
                       <h5
                         className="mb-0 text-white fs-6 border-2 border-double border-corallo rounded-3 p-2 bg-opacity-75 hover-effect city-button"
-                        onClick={() => handleCitySelect(city)} // Selezionando una città dalla lista recente
+                        onClick={() => handleCitySelect(city)}
                       >
                         {city}
                       </h5>
@@ -214,7 +232,7 @@ const CustomNavbar = function (props) {
                     placeholder="Cerca città..."
                     className="me-2 transparent-input"
                     value={searchInput}
-                    onChange={handleSearchChange} // Filtra le città mentre scrivi
+                    onChange={handleSearchChange}
                     onKeyDown={handleKeyDown}
                     onFocus={handleFocus}
                   />
@@ -227,12 +245,11 @@ const CustomNavbar = function (props) {
                   </Button>
                 </Form>
 
-                {/* Stellina e dropdown preferiti nella stessa riga, ma allineati a destra */}
                 <div className="d-flex align-items-center">
                   <Button
                     variant="link"
                     className="text-white"
-                    onClick={() => toggleFavoriteCity(searchInput)} // Aggiungi o rimuovi dai preferiti
+                    onClick={() => toggleFavoriteCity(searchInput)}
                   >
                     <BsStar size={24} />
                   </Button>
@@ -255,7 +272,7 @@ const CustomNavbar = function (props) {
                           <Button
                             variant="link"
                             className="dropdown-item text-dark"
-                            onClick={() => handleCitySelect(city)} // Seleziona città dai preferiti
+                            onClick={() => handleCitySelect(city)}
                           >
                             {city}
                           </Button>
@@ -269,21 +286,20 @@ const CustomNavbar = function (props) {
           </Container>
         </Navbar>
 
-        {/* Tendina per la ricerca sotto la navbar */}
         {dropdownOpen && searchInput && (
           <div
             className="dropdown-menu show"
             style={{
               position: 'absolute',
-              top: 'calc(100% + 0.5rem)', // Posiziona la tendina sotto la barra di ricerca
+              top: 'calc(100% + 0.5rem)',
               left: '0',
               width: '100%',
               backgroundColor: 'white',
               color: 'black',
-              zIndex: 1050, // La tendina deve stare sopra gli altri elementi
+              zIndex: 1050,
               maxHeight: '200px',
               overflowY: 'auto',
-              boxShadow: '0px 8px 15px rgba(0, 0, 0, 0.1)', // Ombra per visibilità
+              boxShadow: '0px 8px 15px rgba(0, 0, 0, 0.1)',
             }}
           >
             {filteredCities.map((city, index) => (
@@ -291,7 +307,7 @@ const CustomNavbar = function (props) {
                 key={index}
                 variant="link"
                 className="dropdown-item text-dark"
-                onClick={() => handleCitySelect(city)} // Seleziona città dalla lista filtrata
+                onClick={() => handleCitySelect(city)}
               >
                 {city}
               </Button>
