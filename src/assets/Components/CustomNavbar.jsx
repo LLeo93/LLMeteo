@@ -20,6 +20,7 @@ const CustomNavbar = function (props) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null); // Stato per il messaggio di successo
   const [recentCities, setRecentCities] = useState([]);
   const [favoriteCities, setFavoriteCities] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -69,6 +70,8 @@ const CustomNavbar = function (props) {
       );
     } else {
       updatedFavoriteCities.push(city);
+      setSuccessMessage(`Città "${city}" aggiunta ai preferiti!`); // Imposta il messaggio di successo
+      setTimeout(() => setSuccessMessage(null), 3000); // Nascondi il messaggio dopo 3 secondi
     }
     localStorage.setItem(
       'favoriteCities',
@@ -157,6 +160,27 @@ const CustomNavbar = function (props) {
             variant="link"
             className="text-white position-absolute top-0 end-0 p-0"
             onClick={closeAlert}
+            style={{
+              fontSize: '24px',
+              background: 'none',
+              border: 'none',
+              color: 'white',
+              cursor: 'pointer',
+              padding: '5px 15px',
+            }}
+          >
+            <BsXCircle size={30} />
+          </Button>
+        </Alert>
+      )}
+
+      {successMessage && (
+        <Alert variant="success" className="m-3 alert-dismissible fade show">
+          {successMessage}
+          <Button
+            variant="link"
+            className="text-white position-absolute top-0 end-0 p-0"
+            onClick={() => setSuccessMessage(null)}
             style={{
               fontSize: '24px',
               background: 'none',
