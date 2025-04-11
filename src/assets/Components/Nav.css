@@ -1,0 +1,148 @@
+/* Centriamo verticalmente e orizzontalmente il bottone X */
+.alert {
+  position: relative;
+  display: flex;
+  justify-content: flex-end; /* Posiziona il bottone X a destra */
+  align-items: center;
+  padding-right: 15px; /* Distanziamo un po' la X dal bordo destro dell'alert */
+}
+
+/* Bottone X senza animazione, statico e senza linea sotto */
+.alert button {
+  background: linear-gradient(45deg, #ff6f61, #ff5f57);
+  border: none;
+  border-radius: 10px; /* Meno arrotondato rispetto alla pillola */
+  color: white;
+  font-size: 30px; /* Grandezza della X */
+  font-weight: bold;
+  padding: 10px 15px; /* Maggiore padding */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border-bottom: none; /* Rimuove la linea sotto la X */
+  transition: none; /* Rimuove le animazioni */
+}
+
+/* Effetto hover per il bottone X - rimosso animazione */
+.alert button:hover {
+  background: linear-gradient(45deg, #ff5f57, #ff6f61);
+  transform: none; /* Rimuove l'ingrandimento al passaggio del mouse */
+  box-shadow: none; /* Rimuove l'ombra */
+}
+
+/* Focus del bottone X - rimosso effetto */
+.alert button:focus {
+  outline: none;
+  box-shadow: none; /* Rimuove l'effetto focus */
+}
+
+/* Animazione del bottone X quando cliccato - rimosso effetto */
+.alert button:active {
+  transform: none; /* Rimuove la riduzione della dimensione */
+}
+
+/* Aggiungi un cursore pointer per tutti i bottoni */
+button,
+.city-button,
+.search-button,
+.alert button {
+  cursor: pointer; /* Aggiunge il puntatore al passaggio del mouse */
+}
+
+/* Animazione dell'alert */
+.alert {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 50px; /* Distanziamo un po' la X dal bordo destro dell'alert */
+  animation: fadeIn 0.5s ease-in-out; /* Aggiunta animazione di fade-in */
+}
+
+/* Aggiungi l'animazione di fade-in per l'alert */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Aggiungi effetti per il bottone delle città */
+.city-button {
+  background: transparent;
+  border: 2px solid #ff7f50; /* Corallo */
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  transition: all 0.3s ease;
+  margin: 5px;
+}
+
+.city-button:hover {
+  background: #ff6347; /* Corallo chiaro */
+  transform: scale(1.1); /* Ingrandimento al passaggio del mouse */
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1); /* Leggero effetto di ombra */
+}
+
+/* Bottone delle città: effetto focus */
+.city-button:focus {
+  outline: none;
+  border-color: #ff5f57; /* Colore al focus */
+}
+
+/* Stili per il bottone di ricerca */
+.search-button {
+  background: linear-gradient(45deg, #ff6f61, #ff5f57);
+  border: 2px solid transparent;
+  border-radius: 30px;
+  color: white;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.search-button:hover {
+  background: linear-gradient(45deg, #ff5f57, #ff6f61);
+  transform: scale(1.1);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.search-button:focus {
+  outline: none;
+  box-shadow: 0 0 5px 2px rgba(255, 105, 97, 0.7);
+}
+
+.search-button:active {
+  transform: scale(0.95);
+}
+
+/* Stili input di ricerca trasparente */
+.transparent-input {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  padding: 8px 15px;
+  transition: all 0.3s ease;
+}
+
+.transparent-input:focus {
+  outline: none;
+  border-color: #ff5f57;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Ripristina lo stile del placeholder */
+.transparent-input::placeholder {
+  color: rgba(
+    255,
+    255,
+    255,
+    0.6
+  ); /* Colore semi-trasparente per il placeholder */
+  opacity: 1; /* Mantieni la visibilità del placeholder */
+}

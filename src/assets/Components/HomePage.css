@@ -1,0 +1,12 @@
+.forecast-card {
+  background: linear-gradient(135deg, #ff7f50, #ff6347); /* corallo e tomato */
+  border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 99, 71, 0.4);
+  border-radius: 1rem;
+}
+
+.forecast-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(255, 99, 71, 0.6);
+}
